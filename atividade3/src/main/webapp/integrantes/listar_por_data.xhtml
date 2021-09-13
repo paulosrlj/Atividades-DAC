@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../template.xhtml">
+
+
+    <ui:define name="centro">
+
+        #{integrantebean.limparIntegrantes()}
+        
+        <h2 style="text-align: center; margin: 20px 0 40px 0; font-size: 40px; color: #000">Listar integrantes por data</h2>
+
+        <div class="ui-fluid p-formgrid p-grid">
+
+            <h:form>
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+                <div style="margin: 20px 0; padding: 15px 0 0 0;" class="p-field p-col-12 p-md-4">
+                    <p:outputLabel for="touch-inicial" value="Data inicial"/>
+                    <p:datePicker pattern="dd/MM/yyyy" id="touch-inicial" value="#{integrantebean.dataInicial}" touchUI="true"/>
+                </div>
+
+                <div style="margin: 20px 0; padding: 15px 0 0 0;" class="p-field p-col-12 p-md-4">
+                    <p:outputLabel for="touch-final" value="Data final"/>
+                    <p:datePicker pattern="dd/MM/yyyy" id="touch-final" value="#{integrantebean.dataFinal}" touchUI="true"/>
+                </div>
+
+                <p:commandLink update="integrantes-table" action="#{integrantebean.listarEntreDatas()}">
+                    <p:commandButton type="button" value="Listar" />
+                </p:commandLink>
+
+
+            </h:form>
+        </div>
+
+        <h:dataTable style="margin: 20px 0;" id="integrantes-table" value="#{integrantebean.integrantes}" var="integrantelist">
+            <h:column class='black-text'>
+                <f:facet name="header"><span id="facet-header">Id</span></f:facet>
+                    #{integrantelist.id}
+            </h:column>
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Nome</span></f:facet>
+                    #{integrantelist.nome}
+            </h:column>
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Cpf</span></f:facet>
+                    #{integrantelist.cpf.formatado()}
+            </h:column>     
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Data de nascimento</span></f:facet>
+                    #{integrantelist.dataNascimento}
+            </h:column>      
+        </h:dataTable>
+
+    </ui:define>
+
+</ui:composition>

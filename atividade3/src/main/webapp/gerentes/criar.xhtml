@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../template.xhtml">
+    <ui:define name="centro">
+        <h2 class="create-header">Criar Gerente</h2>
+        <h:form>
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate/>
+            </p:messages>
+            <span class="ui-float-label input-spacing">
+                <p:inputText autocomplete="false" id="float-nome-input" value="#{gerentebean.gerente.nome}"/>
+                <p:outputLabel for="@previous" value="Nome"/>
+            </span>
+            <span class="ui-float-label input-spacing">
+                <p:inputText autocomplete="false" converter="cpf-converter" validator="cpf-validator" maxlength="11"  id="float-cpf-input" value="#{gerentebean.gerente.cpf}"/>
+                <p:outputLabel for="@previous" value="Cpf"/>
+            </span>
+
+            <span class="ui-float-label input-spacing">
+                <p:inputText autocomplete="false" id="float-email-input" value="#{gerentebean.gerente.email}"/>
+                <p:outputLabel for="@previous" value="Email"/>
+            </span>
+            
+            <p:commandLink action="#{gerentebean.criarGerente()}">
+                <p:commandButton type="button" value="Criar" />
+            </p:commandLink>
+        </h:form>
+
+    </ui:define>
+</ui:composition>   

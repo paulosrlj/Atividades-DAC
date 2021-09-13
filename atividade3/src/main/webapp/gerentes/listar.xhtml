@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../template.xhtml">
+
+
+    <ui:define name="centro">
+
+        #{gerentebean.listarGerentes()}
+
+        <h:dataTable id="gerentes-table" class="fullsize-table" var="gerente" value="#{gerentebean.gerentes}">
+            <h:column class='black-text'>
+                <f:facet name="header"><span id="facet-header">Id</span></f:facet>
+                    #{gerente.id}
+            </h:column>
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Nome</span></f:facet>
+                    #{gerente.nome}
+            </h:column>
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Cpf</span></f:facet>
+                    #{gerente.cpf.formatado()}
+            </h:column>
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Email</span></f:facet>
+                    #{gerente.email}
+            </h:column>
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Banda</span></f:facet>
+                    #{gerente.banda.nomeFantasia}
+            </h:column>
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Editar</span></f:facet>
+                <h:form>
+                    <p:commandLink update="gerentes-table" action="#{gerentebean.redirecionarEditarGerente(gerente)}">
+                        <p:commandButton type="button" value="Editar" />
+                    </p:commandLink>
+                </h:form>
+            </h:column>
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Excluir</span></f:facet>
+                <h:form>
+                    <p:commandLink update="gerentes-table" action="#{gerentebean.excluirGerente(gerente)}">
+                        <p:commandButton type="button" value="Excluir" />
+                    </p:commandLink>
+                </h:form>
+            </h:column>
+        </h:dataTable>
+
+        <h:form class='create-form-button'>
+            <p:commandLink action="criar?faces-redirect=true">
+                <p:commandButton type="button" value="Criar gerente" />
+            </p:commandLink>
+        </h:form>
+        <h:form class='create-form-button'>
+            <p:commandLink action="buscar_por_cpf?faces-redirect=true">
+                <p:commandButton type="button" value="Buscar por cpf" />
+            </p:commandLink>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../template.xhtml">
+
+
+    <ui:define name="centro">
+
+        <h2 style="text-align: center; margin: 20px 0 40px 0; font-size: 40px; color: #000">Integrantes da banda #{bandabean.banda.nomeFantasia}</h2>
+
+        <h:dataTable id="integrantes-table" value="#{bandabean.banda.integrantes}" var="integrante">
+            <h:column class='black-text'>
+                <f:facet name="header"><span id="facet-header">Id</span></f:facet>
+                    #{integrante.id}
+            </h:column>
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Nome</span></f:facet>
+                    #{integrante.nome}
+            </h:column>
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Cpf</span></f:facet>
+                    #{integrante.cpf.formatado()}
+            </h:column>     
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Data de nascimento</span></f:facet>
+                    #{integrante.dataNascimento}
+            </h:column>      
+
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Desassociar integrante</span></f:facet>
+                <h:form class='white-text'>
+                    <p:commandLink update="integrantes-table" action="#{bandabean.desassociarIntegrante(integrante)}">
+                        <p:commandButton type="button" value="Desassociar" />
+                    </p:commandLink>
+                </h:form>
+            </h:column>      
+
+        </h:dataTable>
+
+    </ui:define>
+
+</ui:composition>

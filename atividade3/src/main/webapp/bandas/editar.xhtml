@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../template.xhtml">
+
+    <ui:define name="centro">
+        <h2 class="create-header">Editar banda</h2>
+        <div class="ui-fluid p-formgrid p-grid">
+            <h:form>
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+
+                <div class="input-spacing p-field p-col-12 p-md-4">
+                    <h:outputLabel for="nomefantasia" value="Nome fantasia" />
+                    <h:inputText class="input-text-form" id="nomefantasia" value="#{bandabean.banda.nomeFantasia}" />
+                </div>
+                <div class="input-spacing p-field p-col-12 p-md-4">
+                    <h:outputLabel for="nomefantasia" value="Local de origem" />
+                    <h:inputText class="input-text-form" id="localdeorigem" value="#{bandabean.banda.localDeOrigem}" />
+                </div>
+                <div class="select-menu p-field p-col-12 p-md-4">
+                    <p:outputLabel for="@next" value="Associar um gerente"/>
+                    <p:selectOneMenu style="margin: 20px 0; padding: 15px 0 0 0;" converter="gerente-converter" id="longItemLabel" value="#{bandabean.banda.gerente}">
+                        <f:selectItems 
+                            value="#{gerentebean.listarGerentes()}" var="gerentelist" 
+                            itemValue="#{gerentelist}" itemLabel="#{gerentelist.nome}" />
+                    </p:selectOneMenu>
+                </div>
+                
+                <div class="select-menu p-field p-col-12 p-md-4">
+                    <p:outputLabel for="@next" value="Associar um integrante"/>
+                    <p:selectOneMenu style="margin: 20px 0; padding: 15px 0 0 0;" converter="integrante-converter" id="integrante-menu" value="#{bandabean.integrante}">
+                        <f:selectItems 
+                            value="#{integrantebean.listarIntegrantes()}" var="integranteList" 
+                            itemValue="#{integranteList}" itemLabel="#{integranteList.nome}" />
+                    </p:selectOneMenu>
+                </div>
+
+                <p:commandLink action="#{bandabean.editarBanda()}">
+                    <p:commandButton type="button" value="Confirmar" />
+                </p:commandLink>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

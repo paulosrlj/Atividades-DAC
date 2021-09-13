@@ -1,0 +1,18 @@
+version: '3'
+services:   
+  banco:
+    container_name: banco-postgres
+    image: paulo/postgres:1
+    build: ./postgres
+    ports: 
+    - "5433:5432"
+  atividade3:
+    container_name: atividade3
+    image: paulo/atividade3:1
+    build: .
+    ports: 
+     - "8080:8080"
+    depends_on: 
+     - banco
+    links: 
+     - "banco:host-banco"   
