@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifpb.web.jsf;
+package br.edu.ifpb.jsf.converters;
 
 import br.edu.ifpb.domain.CPF;
 import javax.faces.application.FacesMessage;
@@ -13,10 +13,6 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
-/**
- *
- * @author paulo
- */
 @FacesValidator(value="cpf-validator")
 public class ValidatorCpf implements Validator {
 

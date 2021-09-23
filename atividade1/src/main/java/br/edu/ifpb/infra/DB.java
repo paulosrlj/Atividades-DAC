@@ -259,7 +259,7 @@ public class DB {
         }
     }
 
-    public void editarBanda(Banda banda) throws ClassNotFoundException {
+    public void editarBanda(Banda banda, Integrante integrante) throws ClassNotFoundException {
         try {
             Connection conn = this.getConnection();
 
@@ -275,6 +275,15 @@ public class DB {
             statement.setInt(4, banda.getId());
 
             statement.executeUpdate();
+
+            if (integrante != null) {
+                statement = conn.prepareStatement(
+                        "INSERT INTO integrante_banda (id_banda, id_integrante) VALUES(?, ?)"
+                );
+                statement.setInt(1, banda.getId());
+                statement.setInt(2, integrante.getId());
+                statement.executeUpdate();
+            }
 
         } catch (SQLException e) {
             throw new DBException(e.getMessage());
@@ -309,7 +318,7 @@ public class DB {
         try {
             Connection conn = this.getConnection();
             ArrayList<Banda> lista = new ArrayList<>();
-            
+
             PreparedStatement statement = conn.prepareStatement(
                     "SELECT * FROM banda "
                     + "WHERE localdeorigem = ?"
@@ -321,6 +330,31 @@ public class DB {
             while (result.next()) {
                 lista.add(
                         criarBanda(result)
+                );
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new DBException(e.getMessage());
+        }
+    }
+
+    public List<Integrante> buscarIntegrantesBanda(int id) throws ClassNotFoundException {
+        try {
+            Connection conn = this.getConnection();
+            ArrayList<Integrante> lista = new ArrayList<>();
+
+            PreparedStatement statement = conn.prepareStatement(
+                    "SELECT I.id, I.nome, I.datadenascimento, I.cpf "
+                    + "FROM integrante I JOIN integrante_banda IB ON I.id = IB.id_integrante "
+                    + "WHERE IB.id_banda = ?"
+            );
+
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+
+            while (result.next()) {
+                lista.add(
+                        criarIntegrante(result)
                 );
             }
             return lista;

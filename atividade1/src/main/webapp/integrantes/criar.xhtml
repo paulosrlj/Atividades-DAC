@@ -13,6 +13,7 @@
             <h:messages layout="table" />
             <h:outputLabel for="nome" value="Nome" />
             <h:inputText id="nome" value="#{integrantebean.integrante.nome}" />
+            <h4 style="margin: 20px 0; color: black; font-size: 12px">Use o formato "MM-dd-yyyy"</h4>
             <h:outputLabel for="datadenascimento" value="Data de nascimento" />         
             <h:inputText id="datadenascimento" value="#{integrantebean.integrante.dataNascimento}">
                 <f:convertDateTime type="localDate" pattern="MM-dd-yyyy"/>  

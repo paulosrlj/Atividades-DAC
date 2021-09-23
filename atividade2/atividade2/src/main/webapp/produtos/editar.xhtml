@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../template.xhtml">
+    <!--    <h:head>
+            <title>Criar Integrante</title>
+        </h:head>-->
+
+    <ui:define name="centro">
+        <h2 class="create-header">Editar Produto</h2>
+
+        <h:form>
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate/>
+            </p:messages>
+
+            <h:outputLabel for="descricao" value="Descrição" />
+            <h:inputText class="input-text-form" id="descricao" value="#{produtobean.produto.descricao}" />
+            
+            <h:outputLabel for="valor" value="Valor" />
+            <h:inputText class="input-text-form" id="valor" value="#{produtobean.produto.valor}" />
+
+            <p:commandLink action="#{produtobean.editarProduto()}">
+                <p:commandButton type="button" value="Confirmar" />
+            </p:commandLink>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

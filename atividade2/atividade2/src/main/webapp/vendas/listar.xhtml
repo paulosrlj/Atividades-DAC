@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../template.xhtml">
+
+
+    <ui:define name="centro">
+        <h2 class="create-header">Todas as vendas</h2>
+
+        <h:dataTable value="#{carrinhobean.listarVendas()}" var="venda">
+            <h:column class='black-text'>
+                <f:facet name="header"><span id="facet-header">Id</span></f:facet>
+                    #{venda.id}
+            </h:column>
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Id do cliente</span></f:facet>
+                    #{venda.cliente_id}
+            </h:column>
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Carrinho</span></f:facet>
+                <h:form>
+                    <p:commandLink action="#{carrinhobean.produtosDeUmaVenda(venda.id)}" >
+                        <p:commandButton type="button" value="Visualizar" />
+                    </p:commandLink>
+                </h:form>
+            </h:column>
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Adicionar produtos</span></f:facet>
+                <h:form>
+                    <p:commandLink action="#{carrinhobean.redirecionarAdicionarProduto(venda.id, venda.cliente_id)}" >
+                        <p:commandButton type="button" value="Adicionar" />
+                    </p:commandLink>
+                </h:form>
+            </h:column>
+            <h:column class='black-text'>
+                <f:facet id="facet-header" class='black-text' name="header"><span id="facet-header">Excluir venda</span></f:facet>
+                <h:form>
+                    <p:commandLink action="#{carrinhobean.excluirVenda(venda.id)}">
+                        <p:commandButton type="button" value="Excluir" />
+                    </p:commandLink>
+                </h:form>
+            </h:column>
+
+        </h:dataTable>
+
+    </ui:define>
+
+</ui:composition>

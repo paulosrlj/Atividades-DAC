@@ -1,0 +1,21 @@
+version: '3'
+services:   
+  atividade2:
+    container_name: atividade2
+    image: paulo/atividade2
+    build: 
+      context: ../
+      dockerfile: ./docker/core/Dockerfile
+    ports: 
+     - "8080:8080"
+     - "4848:4848"
+    depends_on: 
+     - banco
+    links: 
+     - "banco:host-banco"
+  banco:
+    container_name: banco
+    image: paulo/banco
+    build: ./postgres
+    ports: 
+    - "5433:5432"

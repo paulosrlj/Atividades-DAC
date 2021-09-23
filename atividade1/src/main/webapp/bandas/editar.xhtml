@@ -5,28 +5,40 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
                 template="../template.xhtml">
 
     <ui:define name="centro">
         <h2 class="create-header">Editar banda</h2>
+        <div class="ui-fluid p-formgrid p-grid">
+            <h:form>
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
 
-        <h:form>
-            <h:messages layout="table" />
-            <h:outputLabel for="nomefantasia" value="Nome fantasia" />
-            <h:inputText class="input-text-form" id="nomefantasia" value="#{bandabean.banda.nomeFantasia}" />
-            <h:outputLabel for="nomefantasia" value="Local de origem" />
-            <h:inputText class="input-text-form" id="localdeorigem" value="#{bandabean.banda.localDeOrigem}" />
+                <div class="input-spacing p-field p-col-12 p-md-4">
+                    <h:outputLabel for="nomefantasia" value="Nome fantasia" />
+                    <h:inputText class="input-text-form" id="nomefantasia" value="#{bandabean.banda.nomeFantasia}" />
+                </div>
+                <div class="input-spacing p-field p-col-12 p-md-4">
+                    <h:outputLabel for="nomefantasia" value="Local de origem" />
+                    <h:inputText class="input-text-form" id="localdeorigem" value="#{bandabean.banda.localDeOrigem}" />
+                </div>
+                
+                <div class="select-menu p-field p-col-12 p-md-4">
+                    <p:outputLabel for="@next" value="Associar um integrante"/>
+                    <p:selectOneMenu style="margin: 20px 0; padding: 15px 0 0 0;" converter="integrante-converter" 
+                                     id="integrante-menu" value="#{bandabean.integrante}">
+                        <f:selectItems 
+                            value="#{integrantebean.listarIntegrantes()}" var="integranteList" 
+                            itemValue="#{integranteList}" itemLabel="#{integranteList.nome}" />
+                    </p:selectOneMenu>
+                </div>
 
-            <!--            <h:selectOneMenu value="Selecione um integrante">
-                            <f:selectItems value="#{integrantebean.listarIntegrantes()}" />
-                        </h:selectOneMenu>  -->
-
-            <h:selectOneMenu value="#{integrantebean.integrante}">
-                <f:selectItems value="#{integrantebean.listarIntegrantes()}"
-                               var="int" itemLabel="#{int.nome}" />
-            </h:selectOneMenu>
-
-            <h:commandButton class="waves-effect waves-light btn white-text create-button" action="#{bandabean.editarBanda()}" value="Confirmar" />
-        </h:form>
+                <p:commandLink action="#{bandabean.editarBanda()}">
+                    <p:commandButton type="button" value="Confirmar" />
+                </p:commandLink>
+            </h:form>
+        </div>
     </ui:define>
 </ui:composition>

@@ -2,7 +2,7 @@ version: '3'
 services:   
   banco:
     container_name: banco-postgres
-    image: paulo/postgres:3
+    image: paulo/postgres:1
     build: ./postgres
     ports: 
     - "5433:5432"

@@ -16,9 +16,7 @@
         <h:outputStylesheet library="css" name="materialize.min.css" />
         <h:outputStylesheet library="css" name="style.css" />
 
-        <!--        
-                <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-                <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
+        <script type="text/javascript" src="/javax.faces.resource/datepicker/datepicker.js.jsf?ln=primefaces&amp;v=7.0"/>
     </h:head>
     <h:body>     
 
@@ -28,8 +26,8 @@
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="/app/faces/integrantes/listar.xhtml">Integrantes</a></li>
                     <li><a href="/app/faces/bandas/listar.xhtml">Banda</a></li>
+                    
 
-                    <!--<li><a href="collapsible.html">JavaScript</a></li>--> 
                 </ul>
             </div>
         </nav>
@@ -55,17 +53,19 @@
             <!--<div class="parallax"><img src="background1.jpg" alt="Unsplashed background img 1" /></div>-->
         </div>
 
-
-        <!--  <h:outputScript library="js" name="jquery-2.1.1.min.js" />
-          <h:outputScript library="js" name="materialize.js" />
-          <h:outputScript library="js" name="materialize.min.js" />
-          <h:outputScript library="js" name="init.js" />-->
-
         <!--  Scripts-->
-        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <h:outputScript library="js" name="materialize.js"/>
         <h:outputScript library="js" name="materialize.min.js"/>
         <h:outputScript library="js" name="init.js"/>
+
+        <script type="text/javascript">
+            //<![CDATA[
+            function dateTemplateFunc(date) {
+                return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;width: 2.5rem;height: 2.5rem;line-height: 2.5rem;display: flex;align-items: center;justify-content: center;">' + date.day + '</span>';
+            }
+
+            //]]>
+        </script>
 
     </h:body>
 

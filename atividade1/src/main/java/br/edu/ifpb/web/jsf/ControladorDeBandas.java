@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifpb.web.jsf;
 
 import br.edu.ifpb.domain.Banda;
@@ -12,15 +7,9 @@ import java.util.ArrayList;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import br.edu.ifpb.infra.DB;
-import br.edu.ifpb.infra.DBException;
-import java.sql.Connection;
-import java.sql.SQLException;
+
 import java.util.List;
 
-/**
- *
- * @author paulo
- */
 @Named("bandabean")
 @SessionScoped
 public class ControladorDeBandas implements Serializable {
@@ -29,6 +18,16 @@ public class ControladorDeBandas implements Serializable {
     private Banda banda = new Banda();
     private List<Banda> bandas = new ArrayList<>();
     private List<Banda> bandasPorlocaldeorigem = new ArrayList<>();
+    private Integrante integrante = new Integrante();
+    private List<Integrante> integrantesBanda = new ArrayList<>();
+
+    public List<Integrante> getIntegrantesBanda() {
+        return integrantesBanda;
+    }
+
+    public void setIntegrantesBanda(List<Integrante> integrantesBanda) {
+        this.integrantesBanda = integrantesBanda;
+    }
 
     public Banda getBanda() {
         return banda;
@@ -36,6 +35,10 @@ public class ControladorDeBandas implements Serializable {
 
     public void setBanda(Banda banda) {
         this.banda = banda;
+    }
+    
+    public void limparBanda() {
+        this.setBanda(new Banda());
     }
 
     public List<Banda> getBandasPorlocaldeorigem() {
@@ -53,7 +56,15 @@ public class ControladorDeBandas implements Serializable {
     public void setBandas(List<Banda> bandas) {
         this.bandas = bandas;
     }
-    
+
+    public Integrante getIntegrante() {
+        return integrante;
+    }
+
+    public void setIntegrante(Integrante integrante) {
+        this.integrante = integrante;
+    }
+
     public void cleanBandasPorLocaldeorigem() {
         this.setBandasPorlocaldeorigem(new ArrayList<>());
     }
@@ -69,9 +80,12 @@ public class ControladorDeBandas implements Serializable {
     }
 
     public String editarBanda() throws ClassNotFoundException {
-        db.editarBanda(banda);
+        System.out.println("----AQUIIIII----");
+        System.out.println(integrante.getNome());
+        this.banda.addIntegrate(integrante);
+        db.editarBanda(banda, integrante);
         this.setBanda(new Banda());
-        
+        this.setIntegrante(new Integrante());
         return "listar?faces-redirect=true";
     }
 
@@ -84,8 +98,14 @@ public class ControladorDeBandas implements Serializable {
         db.excluirBanda(banda);
         return "listar";
     }
-    
+
     public void buscarPorLocaldeorigem() throws ClassNotFoundException {
         this.setBandasPorlocaldeorigem(db.buscarPorLocaldeorigem(banda.getLocalDeOrigem()));
+    }
+
+    public String redirecionarListarIntegrantes(Banda banda) throws ClassNotFoundException {
+        this.setBanda(banda);
+        this.setIntegrantesBanda(db.buscarIntegrantesBanda(banda.getId()));
+        return "listar_integrantes.xhtml?faces-redirect=true";
     }
 }

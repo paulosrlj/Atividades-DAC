@@ -11,15 +11,10 @@ import java.util.ArrayList;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import br.edu.ifpb.infra.DB;
-import br.edu.ifpb.infra.DBException;
-import java.sql.Connection;
-import java.sql.SQLException;
+
 import java.util.List;
 
-/**
- *
- * @author paulo
- */
+
 @Named("integrantebean")
 @SessionScoped
 public class ControladorDeIntegrante implements Serializable {
@@ -42,6 +37,10 @@ public class ControladorDeIntegrante implements Serializable {
 
     public void setIntegrantes(List<Integrante> integrantes) {
         this.integrantes = integrantes;
+    }
+    
+    public void limparIntegrante() {
+        this.setIntegrante(new Integrante());
     }
 
     public String criarIntegrante() throws ClassNotFoundException {

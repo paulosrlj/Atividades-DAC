@@ -12,10 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-/**
- *
- * @author paulo
- */
+
 @FacesConverter(value = "integrante-converter", forClass = Integrante.class)
 public class IntegranteConverter implements Converter {
 

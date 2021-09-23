@@ -9,6 +9,7 @@
     <ui:define name="centro">
         <h2 class="create-header">Criar banda</h2>
         <h:form>
+            #{bandabean.limparBanda()}
             <h:messages layout="table" />
             <h:outputLabel for="nomefantasia" value="Nome fantasia" />
             <h:inputText id="nomefantasia" value="#{bandabean.banda.nomeFantasia}" />
